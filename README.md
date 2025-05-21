@@ -1,19 +1,15 @@
-# Penilaian Sumatif Akhir Tahun (PSAT) 2024/2025
+ Penilaian Sumatif Akhir Tahun (PSAT) 2024/2025
 
-## 📌 Deskripsi Proyek
+  Fitur Utama
 
-Repositori ini berisi aplikasi berbasis web yang dikembangkan sebagai bagian dari Penilaian Sumatif Akhir Tahun (PSAT) untuk mata pelajaran DevOps kelas XI TJKT 1 di SMKN 1 Banyumas pada Tahun Ajaran 2024/2025. Aplikasi ini dirancang untuk mengelola data dengan fitur CRUD (Create, Read, Update, Delete) sederhana menggunakan PHP dan MySQL, serta dihosting di layanan cloud AWS RDS.
+Dashboard: Menampilkan data yang telah diinput dalam bentuk tabel.
+Input Data: Formulir untuk menambahkan data baru ke dalam database.
+Edit Data: Memungkinkan pengguna untuk mengubah data yang sudah ada.
+Hapus Data: Menghapus data yang tidak diperlukan.
+Autentikasi Sederhana: Login dengan username dan password default.
+Penggunaan File `.env`: Menyimpan konfigurasi database secara terpisah untuk keamanan dan kemudahan pengelolaan.
 
-## 🧰 Fitur Utama
-
-- **Dashboard**: Menampilkan data yang telah diinput dalam bentuk tabel.
-- **Input Data**: Formulir untuk menambahkan data baru ke dalam database.
-- **Edit Data**: Memungkinkan pengguna untuk mengubah data yang sudah ada.
-- **Hapus Data**: Menghapus data yang tidak diperlukan.
-- **Autentikasi Sederhana**: Login dengan username dan password default.
-- **Penggunaan File `.env`**: Menyimpan konfigurasi database secara terpisah untuk keamanan dan kemudahan pengelolaan.
-
-## 🗂️ Struktur Direktori
+Struktur Direktori
 
 ```
 ├── index.php          # Halaman login utama
@@ -30,9 +26,9 @@ Repositori ini berisi aplikasi berbasis web yang dikembangkan sebagai bagian dar
 └── README.md          # Dokumentasi proyek ini
 ```
 
-## ⚙️ Persiapan dan Instalasi
+Persiapan dan Instalasi
 
-### 1. Buat File `.env`
+1. Buat File `.env`
 
 Buat file `.env` di direktori utama proyek untuk menyimpan konfigurasi koneksi database:
 
@@ -52,31 +48,51 @@ DB_NAME=psat2425
 DB_HOST=rdsku.czt6n8ylfvyb.us-east-1.rds.amazonaws.com
 ```
 
-### 2. Jalankan Aplikasi
+2.Gunakan AWS
+-Masuk ke Aurora&RDS
+-Masuk ke Database lalu create database
+-Engine Type : pilih MySQL
+-Templates : Free tier
+
+-DB cluster identifier : (Nama bebas)
+
+-Master Username : (biarkan admin)
+-Master Password : (password terserah anda)
+-Public access : No
+-Security group pastikan buat/pilih yang accept port inbound 3306 dari 0.0.0.0/0
+-Lalu klik create database
+-Didatabase klik nama database anda lalu lihat di connectivity & Security,tunggu sampai endpoint muncul
+
+3.Masuk ke EC2 Lalu instance
+-Launch instance
+-Nama instance(terserah anda)
+-Application : Ubuntu
+-Instance type : t2micro atau t2nano
+-Keypair : vockey
+-Security groups : SSH, HTTP, HTTPS, anywhere 0.0.0.0/0
+-Advance detail lalu scroll kebawah klik di user data
+-Isi user data dengan perintah deploy
+-Lalu instance
+
+4.Perintah Deploy
+sudo apt update -y
+
+sudo apt install -y apache2 php php-mysql libapache2-mod-php mysql-client
+
+sudo rm -rf /var/www/html/{*,.*}
+
+sudo git clone (alamat repository anda) /var/www/html
+
+sudo chmod -R 777 /var/www/html
+
+echo DB_USER=(nama user) > /var/www/html/.env
+echo DB_PASS=(password database anda)  >> /var/www/html/.env
+echo DB_NAME=(nama databasae anda)  >> /var/www/html/.env
+echo DB_HOST=(endpoint anda) >> /var/www/html/.env
+
+5 Jalankan Aplikasi
 
 Buka file `index.php` di browser Anda. Masuk menggunakan kredensial berikut:
 
-- **Username**: `admin`
-- **Password**: `123`
-
-> ⚠️ **Catatan:** Ubah username dan password default di `index.php` untuk alasan keamanan.
-
-## 🚀 Deployment
-
-Aplikasi ini dapat dijalankan secara lokal maupun dihosting secara online. Untuk deployment online:
-
-- Hosting harus mendukung PHP dan MySQL.
-- File `.env` harus dikonfigurasi sesuai dengan lingkungan hosting.
-- Database harus sudah dibuat dan tersedia.
-
-## 👨‍💻 Kontribusi
-
-Proyek ini adalah bagian dari penilaian individu dan tidak dibuka untuk kontribusi umum. Namun, Anda dipersilakan untuk fork dan mengembangkan sendiri aplikasi ini sesuai kebutuhan.
-
-## 📄 Lisensi
-
-Proyek ini dibuat untuk keperluan edukasi dan tidak memiliki lisensi resmi. Silakan gunakan kode dalam repositori ini untuk pembelajaran pribadi.
-
----
-
-📫 Jika ada pertanyaan atau saran, silakan buat issue di repositori ini.
+Username: `admin`
+Password: `123`
